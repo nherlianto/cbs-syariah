@@ -1,0 +1,3 @@
+# Modular monolith on a single PostgreSQL database
+
+The system ships as one Spring Boot application with module boundaries enforced by Spring Modulith (ledger, customer, deposit, financing, profitsharing, teller, fee, shariagovernance, eod, reporting, migration, audit). Every money movement must post its journal atomically with the subledger change, and a single database transaction gives us that; microservices would force sagas or distributed transactions onto ledger postings, a poor trade for a 1–5 person team. Modules talk through each other's public API or application events, never each other's tables, so a module can be extracted later if scale demands it.

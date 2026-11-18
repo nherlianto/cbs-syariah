@@ -1,0 +1,3 @@
+# Bagi hasil is computed on a revenue-sharing basis
+
+DSN-MUI Fatwa 15/2000 allows either revenue sharing (split gross financing revenue) or profit-and-loss sharing (split net profit after operating costs). We use revenue sharing, as almost all Indonesian sharia banks do: it is predictable for customers and doesn't require allocating operating costs per pool. Monthly, financing revenue funded by third-party funds is allocated to each product pool by average daily balance, then to each account by its own average daily balance and nisbah. Switching basis later would change every historical distribution report and needs DPS approval.

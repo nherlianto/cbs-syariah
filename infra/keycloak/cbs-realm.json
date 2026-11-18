@@ -1,0 +1,49 @@
+{
+  "realm": "cbs",
+  "enabled": true,
+  "roles": {
+    "realm": [
+      { "name": "teller", "description": "Branch cash transactions within teller limits" },
+      { "name": "supervisor", "description": "Checker for maker-checker approvals at a branch" },
+      { "name": "backoffice", "description": "Customer, account, and financing administration" },
+      { "name": "hq", "description": "Cross-branch access" },
+      { "name": "accounting", "description": "Chart of accounts, journal templates, reporting" },
+      { "name": "dps", "description": "Records DPS approvals of products and sharia parameters" }
+    ]
+  },
+  "clients": [
+    {
+      "clientId": "cbs-backoffice",
+      "publicClient": true,
+      "standardFlowEnabled": true,
+      "directAccessGrantsEnabled": false,
+      "redirectUris": ["http://localhost:5173/*"],
+      "webOrigins": ["http://localhost:5173"],
+      "attributes": { "pkce.code.challenge.method": "S256" }
+    }
+  ],
+  "users": [
+    {
+      "username": "teller1",
+      "enabled": true,
+      "firstName": "Dev",
+      "lastName": "Teller",
+      "email": "teller1@example.invalid",
+      "emailVerified": true,
+      "credentials": [{ "type": "password", "value": "teller1", "temporary": false }],
+      "realmRoles": ["teller"],
+      "attributes": { "branch": ["001"] }
+    },
+    {
+      "username": "spv1",
+      "enabled": true,
+      "firstName": "Dev",
+      "lastName": "Supervisor",
+      "email": "spv1@example.invalid",
+      "emailVerified": true,
+      "credentials": [{ "type": "password", "value": "spv1", "temporary": false }],
+      "realmRoles": ["supervisor"],
+      "attributes": { "branch": ["001"] }
+    }
+  ]
+}

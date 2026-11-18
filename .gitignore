@@ -1,0 +1,10 @@
+.gradle/
+build/
+backend/build/
+.idea/
+*.iml
+.vscode/
+node_modules/
+frontend/dist/
+.env
+.jqwik-database

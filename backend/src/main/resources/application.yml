@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: cbs-syariah
+  datasource:
+    url: ${CBS_DB_URL:jdbc:postgresql://localhost:5432/cbs}
+    username: ${CBS_DB_USER:cbs}
+    password: ${CBS_DB_PASSWORD:cbs}
+  jooq:
+    sql-dialect: postgres
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${CBS_OIDC_ISSUER:http://localhost:8180/realms/cbs}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
