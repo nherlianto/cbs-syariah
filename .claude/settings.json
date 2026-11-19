@@ -3,7 +3,8 @@
         "allow": [
             "Bash(npm test:*)",
             "Bash(npm run lint)",
-            "Edit(src/**)"
+            "Edit(/backend/src/**)",
+            "Edit(/frontend/src/**)"
         ],
         "deny": [
             "Read(.env)"

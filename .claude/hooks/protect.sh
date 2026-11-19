@@ -44,8 +44,31 @@ function checkFile(filePath) {
   }
 }
 
-function checkCommand(cmd) {
-  if (!cmd) return;
+// Drop text that is data, not commands, so a commit message or PR body that
+// mentions a blocked pattern is not mistaken for running it:
+// - heredoc bodies (<<EOF … EOF, <<'EOF', <<-EOF)
+// - quoted strings containing whitespace.
+// Quoted single words ("main", '.env') are unquoted so quoting them does not
+// dodge a rule, and strings passed to bash -c / sh -c / eval are unquoted and
+// kept, since they are commands.
+function stripData(cmd) {
+  let out = cmd.replace(
+    /<<-?\s*(['"]?)([A-Za-z_][\w-]*)\1[^\n]*\n[\s\S]*?\n[ \t]*\2[ \t]*(?=\n|$)/g,
+    "",
+  );
+  out = out.replace(
+    /((?:^|\s)(?:-c|eval)\s+)?(['"])((?:\\.|(?!\2)[^\\])*)\2/g,
+    (match, execPrefix, _q, body) => {
+      if (execPrefix) return `${execPrefix}${body}`;
+      return /\s/.test(body) ? "''" : body;
+    },
+  );
+  return out;
+}
+
+function checkCommand(raw) {
+  if (!raw) return;
+  const cmd = stripData(raw);
   if (/\bgit\s+push\b[^;&|]*(\s--force(-with-lease)?\b|\s-[a-zA-Z]*f\b)/.test(cmd)) {
     block("force push is not allowed.");
   }
