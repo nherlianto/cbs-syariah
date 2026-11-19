@@ -27,7 +27,7 @@
                 "hooks": [
                     {
                         "type": "command",
-                        "command": "jq -r '.tool_input.file_path' | xargs npx prettier --write"
+                        "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/format.sh"
                     }
                 ]
             }
